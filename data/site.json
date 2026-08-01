@@ -1,16 +1,28 @@
 {
   "name": "Robby Baskin",
   "homePhotos": [
-    { "src": "assets/img/home-1.svg", "alt": "Sample landscape photo" },
-    { "src": "assets/img/home-2.svg", "alt": "Sample photo" }
+    {
+      "src": "/assets/img/Screenshot 2026-08-01 at 1.48.45 PM.png",
+      "alt": "Sample landscape photo"
+    },
+    {
+      "src": "/assets/img/Screenshot 2026-08-01 at 1.49.14 PM.png",
+      "alt": "Sample photo"
+    }
   ],
   "about": {
-    "photo": "assets/img/about.svg",
+    "photo": "/assets/img/Screenshot 2026-08-01 at 1.49.32 PM.png",
     "bio": "I am a Ph.D. candidate in the Department of History of Science at Example University, where I study how scientific instruments shaped nineteenth-century ideas about the natural world. My dissertation traces the circulation of astronomical photographs between observatories, museums, and the popular press.\n\nBefore graduate school I worked as a research assistant at a natural history museum and studied physics as an undergraduate. My writing has appeared in academic journals as well as a few general-audience outlets. I am always happy to talk with students, journalists, and fellow researchers.",
     "email": "robby.baskin@example.edu",
     "links": [
-      { "label": "Google Scholar", "href": "https://scholar.google.com" },
-      { "label": "GitHub", "href": "https://github.com/wrudnick" }
+      {
+        "label": "Google Scholar",
+        "href": "https://scholar.google.com"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/wrudnick"
+      }
     ]
   },
   "cv": {
