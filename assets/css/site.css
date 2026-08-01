@@ -1,0 +1,189 @@
+/* =========================================================================
+   Robby Baskin — site styles
+   Minimal, serif, lots of whitespace. Inspired by esaavedrabuckley.com.
+   ========================================================================= */
+
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #555;
+  --ink-faint: #999;
+  --bg: #ffffff;
+  --rule: #e6e6e6;
+  --link-underline: #cfcfcf;
+  --max: 760px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8e8e8;
+    --ink-soft: #a9a9a9;
+    --ink-faint: #777;
+    --bg: #121212;
+    --rule: #2a2a2a;
+    --link-underline: #444;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 44px 28px 96px;
+}
+
+/* --- Masthead ------------------------------------------------------------ */
+.masthead { margin-bottom: 64px; }
+
+.wordmark {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  margin: 0 0 6px;
+  line-height: 1.1;
+}
+.wordmark a { color: var(--ink); text-decoration: none; }
+
+nav.site-nav {
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+nav.site-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  margin-right: 14px;
+}
+nav.site-nav a:hover { color: var(--ink); }
+nav.site-nav a.active { color: var(--ink); }
+
+/* --- Generic content ---------------------------------------------------- */
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--link-underline); text-underline-offset: 2px; }
+a:hover { text-decoration-color: var(--ink); }
+
+h2.section {
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 40px 0 14px;
+}
+h2.section:first-of-type { margin-top: 0; }
+
+p { margin: 0 0 18px; }
+
+/* --- Home --------------------------------------------------------------- */
+.home-stage {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+}
+.home-photo-frame {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.home-photo-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+}
+.home-photo-frame .placeholder {
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 4 / 3;
+  background: var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-faint);
+  font-style: italic;
+  font-size: 14px;
+}
+.rotate-btn {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 22px;
+  line-height: 1;
+  padding: 4px 6px;
+  margin-top: 2px;
+}
+.rotate-btn:hover { color: var(--ink); }
+
+/* --- Publications ------------------------------------------------------- */
+.pub {
+  margin: 0 0 18px;
+}
+.pub .pub-title { }
+.pub .pub-title a { text-decoration-color: var(--link-underline); }
+.pub .pub-meta {
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+.pub .pub-note {
+  color: var(--ink-soft);
+  font-size: 15px;
+  font-style: italic;
+}
+.pub .me { font-weight: 700; }
+
+/* --- About -------------------------------------------------------------- */
+.about-photo {
+  margin: 8px 0 28px;
+}
+.about-photo img { display: block; width: 100%; max-width: 320px; height: auto; }
+.about-photo .placeholder {
+  width: 100%; max-width: 320px; aspect-ratio: 1 / 1;
+  background: var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-faint); font-style: italic; font-size: 14px;
+}
+.contact-line { margin: 0 0 6px; color: var(--ink-soft); font-size: 16px; }
+.contact-line .label { color: var(--ink); }
+
+/* --- CV ----------------------------------------------------------------- */
+.cv-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.cv-download {
+  font-size: 15px;
+}
+#cv-pages canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 18px;
+  border: 1px solid var(--rule);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  background: #fff;
+}
+.cv-status { color: var(--ink-faint); font-style: italic; font-size: 15px; }
+
+/* --- Responsive --------------------------------------------------------- */
+@media (max-width: 560px) {
+  .wrap { padding: 32px 20px 72px; }
+  .wordmark { font-size: 26px; }
+  .masthead { margin-bottom: 44px; }
+  body { font-size: 16px; }
+}

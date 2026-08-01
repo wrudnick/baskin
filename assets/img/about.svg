@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Sample portrait">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e7e2dc"/>
+      <stop offset="1" stop-color="#c8c0b6"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#g3)"/>
+  <circle cx="300" cy="240" r="95" fill="#a9a196"/>
+  <path d="M150 520 Q300 360 450 520 Z" fill="#a9a196"/>
+  <text x="300" y="565" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#5c554c" opacity="0.6">sample portrait</text>
+</svg>

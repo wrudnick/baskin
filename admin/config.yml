@@ -1,0 +1,106 @@
+# Sveltia CMS configuration.
+# ---------------------------------------------------------------------------
+# Before this works live you must fill in `repo` and `base_url` below.
+# See SETUP-CMS.md for the (one-time, free) steps.
+# ---------------------------------------------------------------------------
+
+backend:
+  name: github
+  repo: wrudnick/baskin
+  branch: main
+  base_url: https://REPLACE-WITH-YOUR-AUTH-WORKER.workers.dev  # <-- only needed for Option C (see SETUP-CMS.md)
+
+# Lets you edit local files during development with a proxy server
+# (`npx @sveltia/cms/proxy-server`) instead of GitHub. Ignored in production.
+local_backend: true
+
+# Where uploaded images are committed (repo-absolute) and how their paths are
+# stored in the JSON (relative, so it works on GitHub Pages project sites).
+media_folder: "/assets/img"
+public_folder: "assets/img"
+
+# Show a friendly editorial log instead of committing straight to main? Keep
+# simple/direct for a solo author:
+publish_mode: simple
+
+collections:
+  - name: settings
+    label: "Site & About"
+    delete: false
+    files:
+      - name: site
+        label: "Site & About"
+        file: data/site.json
+        format: json
+        fields:
+          - { label: "Name", name: name, widget: string }
+
+          - label: "Home photos"
+            name: homePhotos
+            widget: list
+            required: false
+            label_singular: "Photo"
+            summary: "{{fields.alt}}"
+            fields:
+              - { label: "Image", name: src, widget: image }
+              - { label: "Caption / alt text", name: alt, widget: string, required: false }
+
+          - label: "About"
+            name: about
+            widget: object
+            fields:
+              - { label: "Photo", name: photo, widget: image, required: false }
+              - label: "Bio"
+                name: bio
+                widget: text
+                hint: "One or more paragraphs. Leave a blank line between paragraphs."
+              - { label: "Email", name: email, widget: string, required: false }
+              - label: "Links"
+                name: links
+                widget: list
+                required: false
+                label_singular: "Link"
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: "Label", name: label, widget: string }
+                  - { label: "URL", name: href, widget: string }
+
+          - label: "CV (PDF)"
+            name: cv
+            widget: object
+            fields:
+              - label: "PDF file"
+                name: file
+                widget: file
+                media_folder: "/assets/cv"
+                public_folder: "assets/cv"
+
+  - name: publications
+    label: "Publications"
+    delete: false
+    files:
+      - name: publications
+        label: "Publications"
+        file: data/publications.json
+        format: json
+        fields:
+          - label: "Publications"
+            name: items
+            widget: list
+            label_singular: "Publication"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Type"
+                name: type
+                widget: select
+                default: "Journal article"
+                options:
+                  - "Journal article"
+                  - "Conference paper"
+                  - "Preprint / working paper"
+              - { label: "Title", name: title, widget: string }
+              - { label: "Authors", name: authors, widget: string, required: false, hint: "e.g. Baskin, R., & Coauthor, A." }
+              - { label: "Venue / journal", name: venue, widget: string, required: false }
+              - { label: "Year", name: year, widget: number, required: false, value_type: int, min: 1900, max: 2100 }
+              - { label: "Link (DOI / PDF)", name: url, widget: string, required: false }
+              - { label: "Note", name: note, widget: text, required: false }
