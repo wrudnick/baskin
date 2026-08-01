@@ -52,39 +52,27 @@
     mount.appendChild(nav);
   }
 
-  /* ---- Home rotating photo -------------------------------------------- */
+  /* ---- Home photo (single) -------------------------------------------- */
   function renderHome(site) {
     var mount = document.querySelector("[data-home]");
     if (!mount) return;
-    var photos = ((site && site.homePhotos) || []).slice();
-    var i = 0;
+    // Prefer the single `homePhoto`; fall back to a legacy homePhotos[0].
+    var src = (site && site.homePhoto) ||
+      (site && site.homePhotos && site.homePhotos[0] && site.homePhotos[0].src) || "";
 
     var frame = el("div", { class: "home-photo-frame" });
-    var btn = el("button", { class: "rotate-btn", "aria-label": "Next photo" }, ["→"]);
-
     function placeholder() {
       frame.innerHTML = "";
       frame.appendChild(el("div", { class: "placeholder" }, ["add a photo in the admin"]));
     }
-    function show() {
-      var p = photos[i];
-      if (!p || !p.src) return placeholder();
-      frame.innerHTML = "";
-      var img = el("img", { src: window.assetUrl(p.src), alt: p.alt || "" });
+    if (!src) {
+      placeholder();
+    } else {
+      var img = el("img", { src: window.assetUrl(src), alt: (site && site.name) || "" });
       img.onerror = placeholder;
       frame.appendChild(img);
     }
-
-    btn.addEventListener("click", function () {
-      if (!photos.length) return;
-      i = (i + 1) % photos.length;
-      show();
-    });
-
-    show();
-    var stage = el("div", { class: "home-stage" }, [frame]);
-    if (photos.length > 1) stage.appendChild(btn);
-    mount.appendChild(stage);
+    mount.appendChild(el("div", { class: "home-stage" }, [frame]));
   }
 
   /* ---- Publications ---------------------------------------------------- */

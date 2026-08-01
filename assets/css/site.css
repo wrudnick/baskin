@@ -112,20 +112,6 @@ p { margin: 0 0 18px; }
   font-style: italic;
   font-size: 14px;
 }
-.rotate-btn {
-  flex: 0 0 auto;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--ink-soft);
-  font-family: inherit;
-  font-size: 22px;
-  line-height: 1;
-  padding: 4px 6px;
-  margin-top: 2px;
-}
-.rotate-btn:hover { color: var(--ink); }
-
 /* --- Publications ------------------------------------------------------- */
 .pub {
   margin: 0 0 18px;

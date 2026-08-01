@@ -35,15 +35,7 @@ collections:
         fields:
           - { label: "Name", name: name, widget: string }
 
-          - label: "Home photos"
-            name: homePhotos
-            widget: list
-            required: false
-            label_singular: "Photo"
-            summary: "{{fields.alt}}"
-            fields:
-              - { label: "Image", name: src, widget: image }
-              - { label: "Caption / alt text", name: alt, widget: string, required: false }
+          - { label: "Home photo", name: homePhoto, widget: image, required: false }
 
           - label: "About"
             name: about
