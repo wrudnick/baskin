@@ -1,22 +1,18 @@
 {
-  "name": "Robby Baskin",
-  "homePhoto": "/assets/img/Screenshot 2026-08-01 at 1.48.45 PM.png",
+  "name": "Robert Baskin",
+  "homePhoto": "/assets/img/Screenshot 2026-08-01 at 7.00.24 PM.png",
   "about": {
-    "photo": "/assets/img/Screenshot 2026-08-01 at 1.49.32 PM.png",
-    "bio": "I am a Ph.D. candidate in the Department of History of Science at Example University, where I study how scientific instruments shaped nineteenth-century ideas about the natural world. My dissertation traces the circulation of astronomical photographs between observatories, museums, and the popular press.\n\nBefore graduate school I worked as a research assistant at a natural history museum and studied physics as an undergraduate. My writing has appeared in academic journals as well as a few general-audience outlets. I am always happy to talk with students, journalists, and fellow researchers.",
-    "email": "robby.baskin@example.edu",
+    "photo": "",
+    "bio": "Robert Baskin is a writer and Ph.D. candidate in the English department at Boston College, where he studies Weird fiction, modernism, and philosophical aesthetics. His dissertation compares modernism and weird fiction's responses to various crises in the late 19th and early 20th century.\n\nBefore graduate school he worked as an elementary school teacher. His writing has appeared in academic journals and magazines. He is always happy to talk with students, journalists, critics, and fellow researchers.",
+    "email": "robby.baskin@gmail.com",
     "links": [
       {
         "label": "Google Scholar",
-        "href": "https://scholar.google.com"
-      },
-      {
-        "label": "GitHub",
-        "href": "https://github.com/wrudnick"
+        "href": "https://share.google/6k2rQH6eRV39tsH2a"
       }
     ]
   },
   "cv": {
-    "file": "assets/cv/robby-baskin-cv.pdf"
+    "file": "/assets/cv/RobertBaskinCV.pdf"
   }
 }
