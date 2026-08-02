@@ -27,7 +27,7 @@
       pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdfjs/pdf.worker.min.js";
       var scale = Math.min(2, (window.devicePixelRatio || 1) * 1.3);
 
-      return pdfjsLib.getDocument(file).promise.then(function (pdf) {
+      return pdfjsLib.getDocument(window.CACHE_BUST(file)).promise.then(function (pdf) {
         statusEl.textContent = "";
         var chain = Promise.resolve();
         for (var n = 1; n <= pdf.numPages; n++) {

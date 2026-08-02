@@ -9,9 +9,6 @@
     "Conference paper": "Conference papers",
     "Preprint / working paper": "Preprints & working papers",
   };
-  // Author-name variants to bold within author lists.
-  var AUTHOR_VARIANTS = ["Baskin, R.", "Robert Baskin", "Robby Baskin", "R. Baskin"];
-
   // Fixed nav (labels + targets). Kept in code since it rarely changes.
   var NAV = [
     { label: "selected publications", href: "publications.html" },
@@ -71,42 +68,28 @@
       var img = el("img", { src: window.assetUrl(src), alt: (site && site.name) || "" });
       img.onerror = placeholder;
       frame.appendChild(img);
+      // Caption allows light inline formatting (e.g. <i> for a title).
       var caption = site && site.homeCaption;
-      if (caption) frame.appendChild(el("div", { class: "home-caption" }, [caption]));
+      if (caption) frame.appendChild(el("div", { class: "home-caption", html: caption }));
     }
     mount.appendChild(el("div", { class: "home-stage" }, [frame]));
   }
 
   /* ---- Publications ---------------------------------------------------- */
-  function boldAuthors(authors) {
-    var span = el("span");
-    var html = authors;
-    AUTHOR_VARIANTS.forEach(function (n) {
-      if (!n) return;
-      var esc = n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      html = html.replace(new RegExp(esc, "g"), '<span class="me">' + n + "</span>");
-    });
-    span.innerHTML = html;
-    return span;
-  }
-
   function renderPubItem(mount, p) {
     if (!p || !p.title) return;
     var titleEl = p.url
       ? el("span", { class: "pub-title" }, [el("a", { href: p.url, target: "_blank", rel: "noopener" }, [p.title])])
       : el("span", { class: "pub-title" }, [p.title]);
 
-    var meta = el("div", { class: "pub-meta" });
-    if (p.authors) meta.appendChild(boldAuthors(p.authors));
+    var pub = el("div", { class: "pub" }, [titleEl]);
+
     var tail = [];
     if (p.venue) tail.push(p.venue);
     if (p.year) tail.push(String(p.year));
     if (tail.length) {
-      var sep = p.authors ? (/[.!?]\s*$/.test(p.authors) ? " " : ". ") : "";
-      meta.appendChild(document.createTextNode(sep + tail.join(", ") + "."));
+      pub.appendChild(el("div", { class: "pub-meta" }, [tail.join(", ") + "."]));
     }
-
-    var pub = el("div", { class: "pub" }, [titleEl, meta]);
     if (p.note) pub.appendChild(el("div", { class: "pub-note" }, [p.note]));
     mount.appendChild(pub);
   }

@@ -91,7 +91,6 @@ collections:
                 summary: "{{fields.title}}"
                 fields:
                   - { label: "Title", name: title, widget: string }
-                  - { label: "Authors", name: authors, widget: string, required: false, hint: "e.g. Baskin, R., & Coauthor, A." }
                   - { label: "Venue / journal", name: venue, widget: string, required: false }
                   - { label: "Year", name: year, widget: number, required: false, value_type: int, min: 1000, max: 3000 }
                   - { label: "Link (DOI / PDF)", name: url, widget: string, required: false }
