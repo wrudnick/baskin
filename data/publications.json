@@ -1,21 +1,21 @@
 {
   "groups": [
     {
-      "heading": "Journal articles",
+      "heading": "Reviews",
       "items": [
         {
-          "title": "Picturing the Heavens: Photography and Authority in Victorian Astronomy",
-          "authors": "Baskin, R.",
-          "venue": "Journal of the History of Science",
-          "year": 2025,
-          "url": "#",
-          "note": "How photographic plates reshaped what counted as astronomical evidence."
+          "title": "“We Shall Dwell Amidst Wonder and Glory For Ever”: On Weird Fiction",
+          "authors": "Baskin, R",
+          "venue": "Cleveland Review of Books",
+          "year": 2026,
+          "url": "https://clereviewofbooks.com/we-shall-dwell-amidst-wonder-and-glory-for-ever-on-weird-fiction/",
+          "note": ""
         },
         {
-          "title": "Instruments in Motion: The Museum Life of Scientific Objects",
-          "authors": "Baskin, R., & Okafor, L.",
-          "venue": "Isis",
-          "year": 2024,
+          "title": "Reading the Spectroscope: Popular Accounts of a New Science",
+          "authors": "Nguyen, T., Baskin, R., & Alvarez, M.",
+          "venue": "British Journal for the History of Science",
+          "year": 2023,
           "url": "#",
           "note": ""
         },
@@ -30,7 +30,7 @@
       ]
     },
     {
-      "heading": "Conference papers",
+      "heading": "Academic Reviews",
       "items": [
         {
           "title": "Circulating Images: Observatory Photographs and the Popular Press",
