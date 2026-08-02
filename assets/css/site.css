@@ -100,6 +100,13 @@ p { margin: 0 0 18px; }
   height: auto;
   max-width: 520px;
 }
+.home-caption {
+  max-width: 520px;
+  margin-top: 8px;
+  color: var(--ink-soft);
+  font-style: italic;
+  font-size: 14px;
+}
 .home-photo-frame .placeholder {
   width: 100%;
   max-width: 520px;
@@ -130,16 +137,6 @@ p { margin: 0 0 18px; }
 .pub .me { font-weight: 700; }
 
 /* --- About -------------------------------------------------------------- */
-.about-photo {
-  margin: 8px 0 28px;
-}
-.about-photo img { display: block; width: 100%; max-width: 320px; height: auto; }
-.about-photo .placeholder {
-  width: 100%; max-width: 320px; aspect-ratio: 1 / 1;
-  background: var(--rule);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--ink-faint); font-style: italic; font-size: 14px;
-}
 .contact-line { margin: 0 0 6px; color: var(--ink-soft); font-size: 16px; }
 .contact-line .label { color: var(--ink); }
 

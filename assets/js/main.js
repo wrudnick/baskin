@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  // Order publication groups render in, and the section heading for each type.
+  // Legacy heading map (only used to render old flat `items` data, if present).
   var PUB_ORDER = ["Journal article", "Conference paper", "Preprint / working paper"];
   var PUB_HEADING = {
     "Journal article": "Journal articles",
@@ -10,11 +10,11 @@
     "Preprint / working paper": "Preprints & working papers",
   };
   // Author-name variants to bold within author lists.
-  var AUTHOR_VARIANTS = ["Baskin, R.", "Robby Baskin", "R. Baskin"];
+  var AUTHOR_VARIANTS = ["Baskin, R.", "Robert Baskin", "Robby Baskin", "R. Baskin"];
 
   // Fixed nav (labels + targets). Kept in code since it rarely changes.
   var NAV = [
-    { label: "publications", href: "publications.html" },
+    { label: "selected publications", href: "publications.html" },
     { label: "cv", href: "cv.html" },
     { label: "about + contact", href: "about.html" },
   ];
@@ -71,6 +71,8 @@
       var img = el("img", { src: window.assetUrl(src), alt: (site && site.name) || "" });
       img.onerror = placeholder;
       frame.appendChild(img);
+      var caption = site && site.homeCaption;
+      if (caption) frame.appendChild(el("div", { class: "home-caption" }, [caption]));
     }
     mount.appendChild(el("div", { class: "home-stage" }, [frame]));
   }
@@ -88,51 +90,57 @@
     return span;
   }
 
+  function renderPubItem(mount, p) {
+    if (!p || !p.title) return;
+    var titleEl = p.url
+      ? el("span", { class: "pub-title" }, [el("a", { href: p.url, target: "_blank", rel: "noopener" }, [p.title])])
+      : el("span", { class: "pub-title" }, [p.title]);
+
+    var meta = el("div", { class: "pub-meta" });
+    if (p.authors) meta.appendChild(boldAuthors(p.authors));
+    var tail = [];
+    if (p.venue) tail.push(p.venue);
+    if (p.year) tail.push(String(p.year));
+    if (tail.length) {
+      var sep = p.authors ? (/[.!?]\s*$/.test(p.authors) ? " " : ". ") : "";
+      meta.appendChild(document.createTextNode(sep + tail.join(", ") + "."));
+    }
+
+    var pub = el("div", { class: "pub" }, [titleEl, meta]);
+    if (p.note) pub.appendChild(el("div", { class: "pub-note" }, [p.note]));
+    mount.appendChild(pub);
+  }
+
+  // Convert legacy flat `items` (each with a `type`) into grouped form.
+  function groupsFromFlat(items) {
+    var byType = {}, order = PUB_ORDER.slice();
+    items.forEach(function (p) {
+      var t = p.type || "Other";
+      if (order.indexOf(t) === -1) order.push(t);
+      (byType[t] = byType[t] || []).push(p);
+    });
+    return order.filter(function (t) { return byType[t]; }).map(function (t) {
+      return { heading: PUB_HEADING[t] || t, items: byType[t] };
+    });
+  }
+
   function renderPublications(data) {
     var mount = document.querySelector("[data-publications]");
     if (!mount) return;
-    var items = (data && data.items) || [];
 
-    // Group by type, preserving input order within each group.
-    var byType = {};
-    items.forEach(function (p) {
-      var t = p.type || "Other";
-      (byType[t] = byType[t] || []).push(p);
-    });
-    var order = PUB_ORDER.slice();
-    Object.keys(byType).forEach(function (t) {
-      if (order.indexOf(t) === -1) order.push(t);
-    });
+    var groups = (data && data.groups) ||
+      (data && data.items ? groupsFromFlat(data.items) : []);
 
-    if (!items.length) {
+    var hasAny = groups.some(function (g) { return g.items && g.items.length; });
+    if (!hasAny) {
       mount.appendChild(el("p", { class: "pub-note" }, ["No publications listed yet."]));
       return;
     }
 
-    order.forEach(function (type) {
-      var group = byType[type];
-      if (!group || !group.length) return;
-      mount.appendChild(el("h2", { class: "section" }, [PUB_HEADING[type] || type]));
-
-      group.forEach(function (p) {
-        var titleEl = p.url
-          ? el("span", { class: "pub-title" }, [el("a", { href: p.url, target: "_blank", rel: "noopener" }, [p.title])])
-          : el("span", { class: "pub-title" }, [p.title]);
-
-        var meta = el("div", { class: "pub-meta" });
-        if (p.authors) meta.appendChild(boldAuthors(p.authors));
-        var tail = [];
-        if (p.venue) tail.push(p.venue);
-        if (p.year) tail.push(String(p.year));
-        if (tail.length) {
-          var sep = p.authors ? (/[.!?]\s*$/.test(p.authors) ? " " : ". ") : "";
-          meta.appendChild(document.createTextNode(sep + tail.join(", ") + "."));
-        }
-
-        var pub = el("div", { class: "pub" }, [titleEl, meta]);
-        if (p.note) pub.appendChild(el("div", { class: "pub-note" }, [p.note]));
-        mount.appendChild(pub);
-      });
+    groups.forEach(function (g) {
+      if (!g || !g.items || !g.items.length) return;
+      if (g.heading) mount.appendChild(el("h2", { class: "section" }, [g.heading]));
+      g.items.forEach(function (p) { renderPubItem(mount, p); });
     });
   }
 
@@ -141,19 +149,6 @@
     var mount = document.querySelector("[data-about]");
     if (!mount) return;
     var a = (site && site.about) || {};
-
-    var photo = el("div", { class: "about-photo" });
-    if (a.photo) {
-      var img = el("img", { src: window.assetUrl(a.photo), alt: (site && site.name) || "" });
-      img.onerror = function () {
-        photo.innerHTML = "";
-        photo.appendChild(el("div", { class: "placeholder" }, ["add a photo in the admin"]));
-      };
-      photo.appendChild(img);
-    } else {
-      photo.appendChild(el("div", { class: "placeholder" }, ["photo"]));
-    }
-    mount.appendChild(photo);
 
     // Bio: split plain text into paragraphs on blank lines.
     String(a.bio || "").split(/\n\s*\n/).forEach(function (para) {
@@ -189,7 +184,7 @@
       renderAbout(site);
     }).catch(function (e) {
       // Still render the masthead shell so nav works even if data fails.
-      renderMasthead({ name: "Robby Baskin" });
+      renderMasthead({ name: "Robert Baskin" });
       console.warn("Could not load site.json:", e);
     });
 

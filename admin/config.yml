@@ -36,12 +36,12 @@ collections:
           - { label: "Name", name: name, widget: string }
 
           - { label: "Home photo", name: homePhoto, widget: image, required: false }
+          - { label: "Home photo caption", name: homeCaption, widget: string, required: false, hint: "Optional caption shown under the home photo." }
 
           - label: "About"
             name: about
             widget: object
             fields:
-              - { label: "Photo", name: photo, widget: image, required: false }
               - label: "Bio"
                 name: bio
                 widget: text
@@ -76,23 +76,23 @@ collections:
         file: data/publications.json
         format: json
         fields:
-          - label: "Publications"
-            name: items
+          - label: "Sections"
+            name: groups
             widget: list
-            label_singular: "Publication"
-            summary: "{{fields.title}}"
+            label_singular: "Section"
+            summary: "{{fields.heading}}"
+            hint: "Each section is a publication type with its own heading. Add, rename, and drag to reorder them however you like."
             fields:
-              - label: "Type"
-                name: type
-                widget: select
-                default: "Journal article"
-                options:
-                  - "Journal article"
-                  - "Conference paper"
-                  - "Preprint / working paper"
-              - { label: "Title", name: title, widget: string }
-              - { label: "Authors", name: authors, widget: string, required: false, hint: "e.g. Baskin, R., & Coauthor, A." }
-              - { label: "Venue / journal", name: venue, widget: string, required: false }
-              - { label: "Year", name: year, widget: number, required: false, value_type: int, min: 1900, max: 2100 }
-              - { label: "Link (DOI / PDF)", name: url, widget: string, required: false }
-              - { label: "Note", name: note, widget: text, required: false }
+              - { label: "Section heading", name: heading, widget: string, hint: "e.g. Journal articles, Book chapters, Essays & criticism, Book reviews" }
+              - label: "Publications"
+                name: items
+                widget: list
+                label_singular: "Publication"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Title", name: title, widget: string }
+                  - { label: "Authors", name: authors, widget: string, required: false, hint: "e.g. Baskin, R., & Coauthor, A." }
+                  - { label: "Venue / journal", name: venue, widget: string, required: false }
+                  - { label: "Year", name: year, widget: number, required: false, value_type: int, min: 1000, max: 3000 }
+                  - { label: "Link (DOI / PDF)", name: url, widget: string, required: false }
+                  - { label: "Note", name: note, widget: text, required: false }
